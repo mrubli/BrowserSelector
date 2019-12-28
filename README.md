@@ -9,6 +9,7 @@ Small utility to launch a different browser depending on the domain of the url b
 ## Change log
 
 * Updated .NET Framework version to 4.6.1.
+* Display program arguments in usage error message to aid with diagnosing problems.
 
 ## Setting Up
 

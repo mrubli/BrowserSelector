@@ -21,7 +21,7 @@ namespace DanTup.BrowserSelector
 
 			if (args == null || args.Length == 0)
 			{
-				ShowHelpInfo();
+				ShowHelpInfo(args);
 				return;
 			}
 
@@ -77,16 +77,23 @@ namespace DanTup.BrowserSelector
 					}
 					else
 					{
-						ShowHelpInfo();
+						ShowHelpInfo(args);
 						return;
 					}
 				}
 			}
 		}
 
-		static void ShowHelpInfo()
+		static void ShowHelpInfo(string[] args)
 		{
-			MessageBox.Show(@"Usage:
+			StringBuilder sb = new StringBuilder();
+			if (args != null && args.Length > 0)
+			{
+				sb.AppendLine("Invalid argument(s):")
+					.AppendLine(String.Join(" ", args))
+					.AppendLine();
+			}
+			sb.Append(@"Usage:
 
     BrowserSelector.exe --register
         Register as web browser
@@ -118,7 +125,9 @@ If you use the --wait flag with multiple urls/files each will open one after the
 
 To open multiple urls at the same time and wait for them, try the following:
 
-    BrowserSelector.exe ""url-or-file"" ""url-or-file"" --wait ""url-or-file""", "BrowserSelector", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    BrowserSelector.exe ""url-or-file"" ""url-or-file"" --wait ""url-or-file"""
+			);
+			MessageBox.Show(sb.ToString(), "BrowserSelector", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 
 		static void EnsureAdmin(string arg)
