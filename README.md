@@ -8,7 +8,7 @@ Small utility to launch a different browser depending on the domain of the url b
 
 ## Change log
 
-_None yet._
+* Updated .NET Framework version to 4.6.1.
 
 ## Setting Up
 
