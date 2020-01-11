@@ -1,4 +1,4 @@
-:information_source: This is a fork of https://github.com/DanTup/BrowserSelector. See the change log below for differences to the original.
+﻿:information_source: This is a fork of https://github.com/DanTup/BrowserSelector. See the change log below for differences to the original.
 
 # Browser Selector
 
@@ -10,6 +10,7 @@ Small utility to launch a different browser depending on the domain of the url b
 
 * Updated .NET Framework version to 4.6.1.
 * Display program arguments in usage error message to aid with diagnosing problems.
+* Added support for [URL transformations](#url-transformations).
 
 ## Setting Up
 
@@ -87,6 +88,10 @@ myproject.local = chrome_prof8
 
 google.com = chrome
 visualstudio.com = edge
+
+; Transform YouTube URLs to use Invidious for extra privacy
+www.youtube.com = ff:s|www.youtube.com/(.*)|www.invidio.us/$1|
+youtu.be = ff:s|youtu.be/(.*)|www.invidio.us/watch?v=$1|
 ```
 
 ### Browsers
@@ -106,7 +111,7 @@ visualstudio.com = edge
 - This is required when specifying UWP app's such as Microsoft Edge.
 - By default, the url is used as an argument when launching the exe. If the `{url}` flag is specified, it will not be added to the arguments. (In other words, it _won't_ be added twice..)
 
-### Urls
+### URLs
 
 There are two ways to specify an Url. You can use simple wildcards or full regular expressions.
 
@@ -128,3 +133,25 @@ There are two ways to specify an Url. You can use simple wildcards or full regul
 - Full regular expressions are specified by wrapping it in /'s.
 - The domain _and_ path are used in the Url comparison.
 - The regular expression syntax is based on the Microsoft .NET implementation.
+
+### URL transformations
+
+URLs can be transformed by adding transformation rules to the browser key.
+Transformation rules are separated from the browser key using a `:`.
+Currently the only supported transformation is regexp replacement of the form `s/find/replace/[flags]`:
+
+```
+www.example.eu = ff:s/\.eu/.co.uk/
+; Any non-space character may be used as delimiters
+www.example.eu = ff:s|\.eu|.co.uk|
+www.example.eu = ff:s⦁\.eu⦁.co.uk⦁
+
+; Case-insensitive replacement (replaces "abc", "ABC", "Abc", etc.)
+www.example.com = ff:s/abc/def/i
+
+; Capturing groups work too (numbered and named)
+example.com = ff:s|/m/(.*)|/$1|
+example.com = ff:s|/m/(?<subpath>.*)|/${subpath}|
+```
+
+Regular expressions use the [.NET Regular Expression syntax](https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference).

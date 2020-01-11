@@ -255,6 +255,15 @@ To open multiple urls at the same time and wait for them, try the following:
 
 					if (Regex.IsMatch(domain, pattern))
 					{
+						// Apply the URL transformation if there is one
+						if (preference.Transform != null)
+						{
+							//var msg = "before: " + _url;
+							_url = preference.Transform(_url);
+							//msg += "\r\nafter: " + _url;
+							//MessageBox.Show(msg);
+						}
+
 						string loc = preference.Browser.Location;
 						if (loc.IndexOf("{url}") > -1)
 						{
@@ -289,6 +298,13 @@ To open multiple urls at the same time and wait for them, try the following:
 				}
 
 				MessageBox.Show(string.Format("Unable to find a suitable browser matching {0}.", url), "BrowserSelector", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			catch (ConfigSyntaxException ex)
+			{
+				MessageBox.Show(
+					$"An error occurred while reading the configuration file {ConfigReader.ConfigPath}:\r\n\r\n{ex.Message}",
+					"BrowserSelector", MessageBoxButtons.OK, MessageBoxIcon.Error
+				);
 			}
 			catch (Exception ex)
 			{
