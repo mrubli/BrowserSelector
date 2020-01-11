@@ -283,7 +283,10 @@ To open multiple urls at the same time and wait for them, try the following:
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(string.Format("Unable to launch browser, sorry :(\r\n\r\nPlease send a copy of this error to DanTup.\r\n\r\n{0}.", ex.ToString()), "BrowserSelector", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show(
+					$"An error occurred while launching the browser:\r\n\r\n{ex.ToString()}",
+					"BrowserSelector", MessageBoxButtons.OK, MessageBoxIcon.Error
+				);
 			}
 		}
 
