@@ -1,10 +1,14 @@
-> NOTE: This software is not being actively developed or maintained.
+:information_source: This is a fork of https://github.com/DanTup/BrowserSelector. See the change log below for differences to the original.
 
-# Browser Selector [![Build status](https://ci.appveyor.com/api/projects/status/github/DanTup/BrowserSelector?svg=true)](https://ci.appveyor.com/project/DanTup/browserselector)
+# Browser Selector
 
 Small utility to launch a different browser depending on the domain of the url being launched.
 
 > **[Read the blog post about this here](http://blog.dantup.com/2015/09/simple-windows-browser-selector/)**.
+
+## Change log
+
+_None yet._
 
 ## Setting Up
 
